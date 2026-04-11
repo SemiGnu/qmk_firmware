@@ -43,10 +43,10 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 }
 
 static void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("Layer:"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Default"), false);
+            oled_write_ln_P(PSTR("QWERTY"), false);
             break;
         case 1:
             oled_write_ln_P(PSTR("Lower"), false);
