@@ -69,11 +69,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+void oled_render_logo(void) {
+    static const char PROGMEM logo_row_1[] = {0x00, 0x94, 0x95, 0x96, 0x97, 0};
+    static const char PROGMEM logo_row_2[] = {0x00, 0x98, 0x99, 0x9A, 0x9B, 0};
+    static const char PROGMEM logo_row_3[] = {0x00, 0x9C, 0x9D, 0x9E, 0x9F, 0};
+
+    oled_set_cursor(0, 1);
+    oled_write_ln_P(logo_row_1, false);
+    oled_write_ln_P(logo_row_2, false);
+    oled_write_ln_P(logo_row_3, false);
+}
+#endif
+
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-  [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
-  [1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
-  [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
-  [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
+    [0] =
+        {
+            ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+            ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+            ENCODER_CCW_CW(RM_VALD, RM_VALU),
+            ENCODER_CCW_CW(KC_RGHT, KC_LEFT),
+        },
+    [1] =
+        {
+            ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+            ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+            ENCODER_CCW_CW(RM_VALD, RM_VALU),
+            ENCODER_CCW_CW(KC_RGHT, KC_LEFT),
+        },
+    [2] =
+        {
+            ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+            ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+            ENCODER_CCW_CW(RM_VALD, RM_VALU),
+            ENCODER_CCW_CW(KC_RGHT, KC_LEFT),
+        },
+    [3] =
+        {
+            ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+            ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+            ENCODER_CCW_CW(RM_VALD, RM_VALU),
+            ENCODER_CCW_CW(KC_RGHT, KC_LEFT),
+        },
 };
 #endif
