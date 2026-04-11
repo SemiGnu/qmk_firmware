@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_WIDTH 5
 #define OLED_FONT_HEIGHT 8
 #define OLED_FONT_END 0x9F
+#define SPLIT_LAYER_STATE_ENABLE
 // #define USE_MATRIX_I2C
 
 // #define QUICK_TAP_TERM 0

@@ -68,6 +68,134 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                                                   )};
 
 #ifdef OLED_ENABLE
+static uint16_t get_effective_keycode(uint8_t layer, keypos_t key) {
+    for (int8_t l = (int8_t)layer; l >= 0; l--) {
+        uint16_t keycode = keymap_key_to_keycode((uint8_t)l, key);
+        if (keycode != KC_TRNS) {
+            return keycode;
+        }
+    }
+
+    return KC_NO;
+}
+
+static char keycode_to_oled_char(uint16_t keycode) {
+    switch (keycode) {
+        case KC_A ... KC_Z:
+            return 'A' + (char)(keycode - KC_A);
+        case KC_1 ... KC_9:
+            return '1' + (char)(keycode - KC_1);
+        case KC_0:
+            return '0';
+        case KC_MINS:
+            return '-';
+        case KC_EQL:
+            return '=';
+        case KC_LBRC:
+            return '[';
+        case KC_RBRC:
+            return ']';
+        case KC_BSLS:
+            return '\\';
+        case KC_SCLN:
+            return ';';
+        case KC_QUOT:
+            return '\'';
+        case KC_COMM:
+            return ',';
+        case KC_DOT:
+            return '.';
+        case KC_SLSH:
+            return '/';
+        case KC_GRV:
+            return '`';
+        case KC_TAB:
+            return 't';
+        case KC_ESC:
+            return 'x';
+        case KC_BSPC:
+            return 'b';
+        case KC_DEL:
+            return 'd';
+        case KC_ENT:
+            return 'e';
+        case KC_SPC:
+            return 's';
+        case KC_LSFT:
+        case KC_RSFT:
+            return 's';
+        case KC_LCTL:
+        case KC_RCTL:
+            return 'c';
+        case KC_LALT:
+        case KC_RALT:
+            return 'a';
+        case KC_LGUI:
+        case KC_RGUI:
+            return 'g';
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+            return 'r';
+        case QK_TO ... QK_TO_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+            return 'l';
+        case KC_TRNS:
+            return ' ';
+        case KC_NO:
+            return ' ';
+        default:
+            break;
+    }
+
+    if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        return keycode_to_oled_char(QK_MOD_TAP_GET_TAP_KEYCODE(keycode));
+    }
+
+    if (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) {
+        return keycode_to_oled_char(QK_LAYER_TAP_GET_TAP_KEYCODE(keycode));
+    }
+
+    return '?';
+}
+
+static void render_layer_bind_lines(void) {
+    const uint8_t layer = get_highest_layer(layer_state);
+    char          line[7];
+
+    for (uint8_t r = 0; r < 4; r++) {
+        for (uint8_t i = 0; i < 6; i++) {
+            line[i] = ' ';
+        }
+
+        if (is_keyboard_left()) {
+            if (r < 3) {
+                for (uint8_t c = 0; c < 6; c++) {
+                    line[c] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = r, .col = c}));
+                }
+            } else {
+                line[3] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 3, .col = 3}));
+                line[4] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 3, .col = 4}));
+                line[5] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 3, .col = 5}));
+            }
+        } else {
+            if (r < 3) {
+                const uint8_t row = 4 + r;
+                for (uint8_t c = 0; c < 6; c++) {
+                    line[c] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = row, .col = 5 - c}));
+                }
+            } else {
+                line[0] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 7, .col = 5}));
+                line[1] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 7, .col = 4}));
+                line[2] = keycode_to_oled_char(get_effective_keycode(layer, (keypos_t){.row = 7, .col = 3}));
+            }
+        }
+
+        line[6] = '\0';
+        oled_set_cursor(0, 12 + r);
+        oled_write(line, false);
+    }
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
@@ -113,6 +241,15 @@ void oled_render_logo(void) {
     for (uint8_t i = 0; i < 6; i++) {
         oled_write_char(logo[1][i], false);
     }
+}
+
+bool oled_task_user(void) {
+    if (!is_keyboard_master()) {
+        oled_render_logo();
+    }
+
+    render_layer_bind_lines();
+    return false;
 }
 #endif
 
