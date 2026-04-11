@@ -200,7 +200,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-void oled_render_logo(void) {
+void oled_render_bongocat(void) {
     uint8_t logo[2][6] = {
         {0x80, 0x81, 0x82, 0x83, 0x84, 0x85},
         {0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B},
@@ -233,19 +233,34 @@ void oled_render_logo(void) {
     }
 
     oled_set_cursor(0, 4);
-    for (uint8_t i = 0; i < 6; i++) {
-        oled_write_char(logo[0][i], false);
+    for (uint8_t i = 0; i < 2; i++) {
+        for (uint8_t j = 0; j < 6; j++) {
+            oled_write_char(logo[i][j], false);
+        }
     }
+}
 
-    oled_set_cursor(0, 5);
-    for (uint8_t i = 0; i < 6; i++) {
-        oled_write_char(logo[1][i], false);
+void oled_render_semignu(void) {
+    uint8_t logo[3][6] = {
+        {0x20, 0x94, 0x95, 0x96, 0x97, 0x20},
+        {0x20, 0x98, 0x99, 0x9a, 0x9b, 0x20},
+        {0x20, 0x9c, 0x9d, 0x9e, 0x9f, 0x20},
+    };
+
+    oled_set_cursor(0, 4);
+    for (uint8_t i = 0; i < 3; i++) {
+        for (uint8_t j = 0; j < 6; j++) {
+            oled_write_char(logo[i][j], false);
+        }
     }
 }
 
 bool oled_task_user(void) {
-    if (!is_keyboard_master()) {
-        oled_render_logo();
+    if (is_keyboard_master()) {
+        oled_render_semignu();
+    }
+    else {
+        oled_render_bongocat();
     }
 
     render_layer_bind_lines();
