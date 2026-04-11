@@ -79,6 +79,19 @@ static uint16_t get_effective_keycode(uint8_t layer, keypos_t key) {
     return KC_NO;
 }
 
+enum oled_glyph {
+    GLYPH_NONE  = 0x20, // regular space
+    GLYPH_ESC   = 0x01,
+    GLYPH_SHIFT = 0x02,
+    GLYPH_RAISE = 0x03,
+    GLYPH_LOWER = 0x04,
+    GLYPH_ALT   = 0x06,
+    GLYPH_ENTER = 0x08,
+    GLYPH_SPACE = 0x09,
+    GLYPH_SUPER = 0x0B,
+    GLYPH_TAB   = 0x0C,
+};
+
 static char keycode_to_oled_char(uint16_t keycode) {
     switch (keycode) {
         case KC_A ... KC_Z:
@@ -110,29 +123,29 @@ static char keycode_to_oled_char(uint16_t keycode) {
         case KC_GRV:
             return '`';
         case KC_TAB:
-            return 't';
+            return (char)GLYPH_TAB;
         case KC_ESC:
-            return 'x';
+            return (char)GLYPH_ESC;
         case KC_BSPC:
-            return 'b';
+            return '<';
         case KC_DEL:
-            return 'd';
+            return '>';
         case KC_ENT:
-            return 'e';
+            return (char)GLYPH_ENTER;
         case KC_SPC:
-            return 's';
+            return (char)GLYPH_SPACE;
         case KC_LSFT:
         case KC_RSFT:
-            return 's';
+            return (char)GLYPH_SHIFT;
         case KC_LCTL:
         case KC_RCTL:
             return 'c';
         case KC_LALT:
         case KC_RALT:
-            return 'a';
+            return (char)GLYPH_ALT;
         case KC_LGUI:
         case KC_RGUI:
-            return 'g';
+            return (char)GLYPH_SUPER;
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
             return 'r';
         case QK_TO ... QK_TO_MAX:
