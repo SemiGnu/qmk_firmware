@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         _______,         KC_HASH, KC_CIRC, KC_LPRN, KC_RPRN, KC_DLR,                  KC_EQL,  KC_4,    KC_5,    KC_6,    KC_MINS, KC_GRV,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        _______,         KC_3,    KC_E,    KC_1,    KC_Q,    XXXXXXX,                 KC_0,    KC_1,    KC_2,    KC_3,    KC_BSLS, _______,
+        _______,         KC_3,    KC_E,    KC_1,    KC_Q,    KC_PIPE,                 KC_0,    KC_1,    KC_2,    KC_3,    KC_BSLS, _______,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                       _______, MO(3), _______,          _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -46,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        _______,         KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_UNDS,                 KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
+        _______,         KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_UNDS,                 KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         _______,         KC_HASH, KC_CIRC, KC_LPRN, KC_RPRN, KC_DLR,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        _______,         KC_PERC, KC_AMPR, KC_LBRC, KC_RBRC, XXXXXXX,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______,         KC_PERC, KC_AMPR, KC_LBRC, KC_RBRC, KC_PIPE,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                       _______, _______, _______,          _______, MO(3), _______
                                       //`--------------------------'  `--------------------------'
@@ -58,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [3] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        QK_BOOT,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                 KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,
+        _______,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RM_TOGG,                 KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        RM_TOGG,         RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, XXXXXXX,                 KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX,
+        _______,         RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, RM_NEXT,                 KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        RM_NEXT,         RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX,                 KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX,
+        _______,         RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX,                 KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, _______,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                       _______, _______, _______,          _______, _______, _______
                                       //`--------------------------'  `--------------------------'
