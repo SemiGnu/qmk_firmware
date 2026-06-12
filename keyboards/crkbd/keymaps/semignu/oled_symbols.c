@@ -125,6 +125,22 @@ char semignu_keycode_to_oled_char(uint16_t keycode) {
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
             return 'l';
+        case RM_TOGG:
+            return 't';
+        case RM_NEXT:
+            return 'n';
+        case RM_HUEU:
+            return 'H';
+        case RM_HUED:
+            return 'h';
+        case RM_SATU:
+            return 'S';
+        case RM_SATD:
+            return 's';
+        case RM_VALU:
+            return 'V';
+        case RM_VALD:
+            return 'v';
         case KC_TRNS:
             return ' ';
         case KC_NO:
